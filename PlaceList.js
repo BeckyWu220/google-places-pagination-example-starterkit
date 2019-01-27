@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import PaginatableList from '@twotalltotems/paginatable-list';
 import { paginationStateManager } from './listReducer';
 
-const GOOGLE_PLACES_API_KEY = 'GOOGLEPLACESAPIKEY'
+const GOOGLE_PLACES_API_KEY = ''
 
 const queryParams = {
   location: '-33.8670522,151.1957362',
@@ -17,9 +17,14 @@ var nextPageToken = { pagetoken : null }
 
 class PlaceList extends Component {
     renderListItem = ({ index, item }) => {
+        const imageUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${item.photos[0].photo_reference}&key=${GOOGLE_PLACES_API_KEY}`
         return (
-            <TouchableOpacity style={{ height: 50 }} key={item.id}>
-                <Text>Name:{item.name}</Text>
+            <TouchableOpacity style={{ height: 100, flexDirection: 'row', padding: 10, alignItems:'center' }} key={item.id}>
+                <Image style={{width: 50, height: 50, borderRadius: 4}} source={{ uri: imageUrl}}/>
+                <View style={{ flexGrow: 1, marginLeft: 10 }}>
+                    <Text style={{ fontWeight: 'bold' }}>{item.name}</Text>
+                    <Text>{item.vicinity}</Text>
+                </View>
             </TouchableOpacity>
         )
     }
@@ -51,15 +56,23 @@ class PlaceList extends Component {
         }
     }
 
+    renderSeparator = () => {
+        return (
+            <View style={{ height: 1, width: '100%', backgroundColor: 'red' }} />
+        )
+    }
+
     render() {
         return (
             <View style={{ flex:1 }}>
                 <PaginatableList
                     onRenderItem={this.renderListItem}
                     customizedPaginationStateManager={paginationStateManager}
+                    onRenderSeparator={this.renderSeparator}
                     keyExtractor={this.keyExtractor}
                     onLoadMore={this.onLoadMore}
                     onRefresh={this.onRefresh}
+                    style={{ margin: 10 }}
                 />
             </View>
         )
