@@ -4,10 +4,17 @@ import { combineReducers, applyMiddleware, compose, createStore } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { Provider, connect } from 'react-redux';
 
-const getCombinedReducers = () => {}
+import PlaceList from './PlaceList';
+import { paginationStateManager } from './listReducer';
+
+const getCombinedReducers = () => {
+  return combineReducers({
+    places : paginationStateManager.reducer(), // 'places' should be kept the same as the first param in PaginationStateManager instance created in the last step.
+  });
+}
 
 const reduxStore = createStore(
-  getCombinedReducers,
+  getCombinedReducers(),
 	{}, //Initial State of Redux Store
 	compose(
 		applyMiddleware(ReduxThunk)
@@ -19,6 +26,7 @@ export default class App extends React.Component {
     return (
         <View style={styles.container}>
           <Provider store={reduxStore}>
+            <PlaceList/>
           </Provider>
         </View>
     )
