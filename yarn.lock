@@ -569,6 +569,10 @@
     pouchdb-collections "^1.0.1"
     tiny-queue "^0.2.1"
 
+"@twotalltotems/paginatable-list@0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@twotalltotems/paginatable-list/-/paginatable-list-0.0.18.tgz#fa4fe8b034fed4f83c031fdbd3e08b6cf242f48c"
+
 "@types/fbemitter@^2.0.32":
   version "2.0.32"
   resolved "https://registry.yarnpkg.com/@types/fbemitter/-/fbemitter-2.0.32.tgz#8ed204da0f54e9c8eaec31b1eec91e25132d082c"
